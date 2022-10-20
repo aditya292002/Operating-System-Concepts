@@ -1,5 +1,22 @@
 
 
+
+
+'''
+Approach : 
+
+Philosophers on odd indices(1 and 3) are allowed to pick forks, parallely and and complete execution.
+
+Only one of the philosophers on even indices(0, 2, 4) are allowed to pick forks. 
+(Use a lock 'even' to let only one philosopher at even index to pick forks)
+
+'''
+
+
+
+
+
+
 # https://leetcode.com/problems/the-dining-philosophers/   <-- problem link
 
 # https://leetcode.com/submissions/detail/826536027/       <-- submission link 
@@ -25,8 +42,10 @@ class DiningPhilosophers:
 
         
 
-        if(phi%2 == 0):
-            self.even.acquire()
+
+        if(phi%2 == 0):                     
+            #rest of philosophers at other even indices are can't pick fork now
+            self.even.acquire()        
             
         i = phi
         j = ((phi + 1) % 5)

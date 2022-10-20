@@ -41,7 +41,7 @@ class Semaphore {
 class DiningPhilosophers {
 public:
     Semaphore fork[5];
-    mutex m, l;    
+    mutex m;    
 
     DiningPhilosophers() {    
         for(int i = 0; i < 5; i++) {
