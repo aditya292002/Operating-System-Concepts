@@ -27,9 +27,22 @@ class DiningPhilosophers:
                    putLeftFork: 'Callable[[], None]',
                    putRightFork: 'Callable[[], None]') -> None:
         
+
+
+        ''' 
+        locks helps to allow atomic opeartion 
+        so, 
+        when the C.S is held it is exec. first -> mutex is unlocked -> so, m is always available for next 
+        operation
+        '''
         self.m.acquire()
+
+
+        # C.S start
         self.fork[p].acquire()
         self.fork[(p+1)%5].acquire()
+        #C.S end
+        
         self.m.release()
 
         pickLeftFork()
