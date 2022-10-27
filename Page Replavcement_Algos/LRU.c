@@ -10,6 +10,8 @@ int max(int a, int b) {
 }
 
 
+
+
 int LRU(int ref_string[], int n, int frames) {
 
     
@@ -31,61 +33,50 @@ int LRU(int ref_string[], int n, int frames) {
     for(; i < frames; i++) {
         mem[i] = ref_string[i];
         vis[ref_string[i]] = 1;
-        counter[ref_string[i]] = 1;
+        counter[ref_string[i]] = i + 1;
     }
 
 
 
     int count_page_fault = frames;
 
-    // printArray(counter, maxi + 1);    
-    // debug(i)
-
     while(i < n) {
         if(vis[ref_string[i]] == 0) {   
 
-
-            // debug(i)
-
             count_page_fault++;
 
-            int min_cnt_ele_ind = -1;
-            int min_cnt = INT_MAX;   
+            int min_ind = INT_MAX;
+            int min_ele = -1;   
 
-            // printArray(counter, maxi + 1);         
+            printArray(counter, maxi + 1);         
             
             for(int j = 0; j < frames; j++) {
                 int element = mem[j];
-                // debug(element)
-                if(counter[element] < min_cnt) {
-                    // debug(counter[element])
-                    // debug(min_cnt)
-                    min_cnt = counter[element];
-                    min_cnt_ele_ind = j; 
+                if(counter[element] < min_ind) {
+                    min_ind = counter[element];
+                    min_ele = j; 
                 }
             }
 
-            // debug(min_cnt_ele_ind)
-            // debug(min_cnt)
 
-            int prev_ele = mem[min_cnt_ele_ind];
+            int prev_ele = mem[min_ele];
             vis[prev_ele] = 0;
 
-            
-            mem[min_cnt_ele_ind] = ref_string[i];
-            vis[ref_string[i]] = 1;
-            counter[ref_string[i]]++;
 
-            // printArray(mem, frames);
-            // printArray(counter, maxi + 1);
+            
+            mem[min_ele] = ref_string[i];
+            vis[ref_string[i]] = 1;
+            counter[ref_string[i]] = i + 1;
+
         }
         else {
-            counter[ref_string[i]]++;
+            counter[ref_string[i]] = i + 1;
         }
         i++;
     }
     return count_page_fault;
 }
+
 
 
 int main() {

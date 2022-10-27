@@ -254,7 +254,7 @@ int LRU(int ref_string[], int n, int frames) {
     for(; i < frames; i++) {
         mem[i] = ref_string[i];
         vis[ref_string[i]] = 1;
-        counter[ref_string[i]] = 1;
+        counter[ref_string[i]] = i + 1;
     }
 
 
@@ -272,38 +272,41 @@ int LRU(int ref_string[], int n, int frames) {
 
             count_page_fault++;
 
-            int min_cnt_ele_ind = -1;
-            int min_cnt = INT_MAX;   
+            int min_ind = INT_MAX;
+            int min_ele = -1;   
 
-            // printArray(counter, maxi + 1);         
+            printArray(counter, maxi + 1);         
             
             for(int j = 0; j < frames; j++) {
                 int element = mem[j];
-                // debug(element)
-                if(counter[element] < min_cnt) {
+                debug(element)
+                if(counter[element] < min_ind) {
                     // debug(counter[element])
                     // debug(min_cnt)
-                    min_cnt = counter[element];
-                    min_cnt_ele_ind = j; 
+                    min_ind = counter[element];
+                    min_ele = j; 
                 }
             }
 
             // debug(min_cnt_ele_ind)
-            // debug(min_cnt)
+            debug(min_ind)
+            debug(min_ele)
 
-            int prev_ele = mem[min_cnt_ele_ind];
+            int prev_ele = mem[min_ele];
+            debug(prev_ele)
             vis[prev_ele] = 0;
 
-            
-            mem[min_cnt_ele_ind] = ref_string[i];
-            vis[ref_string[i]] = 1;
-            counter[ref_string[i]]++;
 
-            // printArray(mem, frames);
-            // printArray(counter, maxi + 1);
+            
+            mem[min_ele] = ref_string[i];
+            vis[ref_string[i]] = 1;
+            counter[ref_string[i]] = i + 1;
+
+            printArray(mem, frames);
+            printArray(counter, maxi + 1);
         }
         else {
-            counter[ref_string[i]]++;
+            counter[ref_string[i]] = i + 1;
         }
         i++;
     }
@@ -314,7 +317,7 @@ int LRU(int ref_string[], int n, int frames) {
 int main() { 
     startClock();
 
-    int ref_string[] = {7,0,1,2,0,3,0,4,2,3,0,3,2,1,2,0,1,7,0,1};
+    int ref_string[] = {7,0,1,2,0,3,0,4,2,3};   
     int n = sizeof(ref_string)/4;
     int frames_cnt = 3;
     cout << LRU(ref_string,n,frames_cnt) << endl;
