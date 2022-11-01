@@ -279,7 +279,7 @@ int LRU(int ref_string[], int n, int frames) {
             
             for(int j = 0; j < frames; j++) {
                 int element = mem[j];
-                debug(element)
+                // debug(element)
                 if(counter[element] < min_ind) {
                     // debug(counter[element])
                     // debug(min_cnt)
@@ -289,11 +289,11 @@ int LRU(int ref_string[], int n, int frames) {
             }
 
             // debug(min_cnt_ele_ind)
-            debug(min_ind)
-            debug(min_ele)
+            // debug(min_ind)
+            // debug(min_ele)
 
             int prev_ele = mem[min_ele];
-            debug(prev_ele)
+            // debug(prev_ele)
             vis[prev_ele] = 0;
 
 
@@ -302,8 +302,8 @@ int LRU(int ref_string[], int n, int frames) {
             vis[ref_string[i]] = 1;
             counter[ref_string[i]] = i + 1;
 
-            printArray(mem, frames);
-            printArray(counter, maxi + 1);
+            // printArray(mem, frames);
+            // printArray(counter, maxi + 1);
         }
         else {
             counter[ref_string[i]] = i + 1;
